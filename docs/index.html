@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>সেবা পয়েন্ট বগুড়া | Sheba Point Bogura – বগুড়ার ডাক্তারের তালিকা</title>
+<meta name="description" content="বগুড়ার ডাক্তার, চেম্বার, বসার দিন ও সময় এক জায়গায়। Find Bogura doctors, hospitals, days and timings.">
+<meta name="theme-color" content="#0f4c3f">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a class="skip" href="#list" data-t="skip">সরাসরি তালিকায় যান</a>
+<header class="top">
+  <a class="brand" href="./" aria-label="Sheba Point Bogura">
+    <svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><path class="lg-pin" d="M32 2C18 2 8 12 8 25c0 17 20 35 24 37 4-2 24-20 24-37C56 12 46 2 32 2z"/><circle class="lg-dot" cx="32" cy="25" r="17"/><path class="lg-pulse" d="M17 26h9l4-9 6 18 4-9h7"/></svg>
+    <span><b class="bn-name">সেবা পয়েন্ট</b><small>Sheba Point · Bogura</small></span>
+  </a>
+  <button id="lang" class="lang" type="button" aria-label="Language">English</button>
+</header>
+
+<section class="hero">
+  <h1 data-t="h1">আপনার ডাক্তার খুঁজুন</h1>
+  <p data-t="sub">বগুড়ার ৫টি হাসপাতালের ডাক্তার – কোথায় বসেন, কোন দিন, কয়টায়।</p>
+  <ol class="steps">
+    <li><i>১</i><span data-t="s1">রোগ বা বিভাগ বাছুন</span></li>
+    <li><i>২</i><span data-t="s2">হাসপাতাল ও দিন বাছুন</span></li>
+    <li><i>৩</i><span data-t="s3">ডাক্তারের সময় দেখুন</span></li>
+  </ol>
+  <label class="search"><span class="sr" data-t="ph">ডাক্তার, রোগ বা হাসপাতাল লিখুন</span>
+    <input id="q" type="search" maxlength="60" autocomplete="off" enterkeyhint="search" data-p="ph">
+  </label>
+</section>
+
+<main>
+  <h2 class="h" data-t="hCat">১. কোন বিভাগের ডাক্তার?</h2>
+  <div id="cats" class="cats" role="group"></div>
+
+  <h2 class="h" data-t="hHosp">২. কোন হাসপাতাল?</h2>
+  <div id="hosp" class="chips" role="group"></div>
+
+  <h2 class="h" data-t="hDay">৩. কোন দিন দেখাতে চান?</h2>
+  <div id="days" class="chips" role="group"></div>
+
+  <div class="bar"><p id="count" role="status" aria-live="polite"></p><button id="reset" class="ghost" type="button" data-t="reset">সব মুছে ফেলুন</button></div>
+  <div id="list" class="list" tabindex="-1"></div>
+  <button id="more" class="more" type="button" data-t="more" hidden>আরও দেখুন</button>
+</main>
+
+<aside class="sos"><b>🚑 <span data-t="sos">জরুরি অবস্থায় ফোন করুন</span></b><a href="tel:999">৯৯৯</a></aside>
+<footer>
+  <p data-t="note">⚠️ ডাক্তারের সময় বদলাতে পারে। যাওয়ার আগে হাসপাতালে ফোন করে নিশ্চিত হয়ে নিন। এই সাইট কোনো হাসপাতালের অফিসিয়াল সাইট নয়।</p>
+  <p>© Sheba Point Bogura</p>
+</footer>
+<script src="app.js" defer></script>
+</body>
+</html>

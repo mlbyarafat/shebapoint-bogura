@@ -6,9 +6,9 @@ const DB = ['শনি','রবি','সোম','মঙ্গল','বুধ','�
 const DBF = ['শনিবার','রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার'], DEF = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
 const TX = {
  bn:{skip:'সরাসরি তালিকায় যান',h1:'আপনার ডাক্তার খুঁজুন',sub:'বগুড়ার ৭টি হাসপাতালের ডাক্তার – কোথায় বসেন, কোন দিন, কয়টায়।',s1:'রোগ বা বিভাগ বাছুন',s2:'হাসপাতাল ও দিন বাছুন',s3:'ডাক্তারের সময় দেখুন',ph:'ডাক্তার, রোগ বা হাসপাতাল লিখুন',hCat:'১. কোন বিভাগের ডাক্তার?',hHosp:'২. কোন হাসপাতাল?',hDay:'৩. কোন দিন দেখাতে চান?',reset:'সব মুছে ফেলুন',more:'আরও দেখুন',sos:'জরুরি অবস্থায় ফোন করুন',note:'⚠️ ডাক্তারের সময় বদলাতে পারে। যাওয়ার আগে হাসপাতালে ফোন করে নিশ্চিত হয়ে নিন। এই সাইট কোনো হাসপাতালের অফিসিয়াল সাইট নয়।',
-  all:'সব',today:'আজ',anyday:'যেকোনো দিন',found:'জন ডাক্তার পাওয়া গেছে',none:'😔 কোনো ডাক্তার পাওয়া যায়নি। অন্য শব্দ লিখুন বা “সব মুছে ফেলুন” চাপুন।',sitsToday:'✔ আজ বসছেন',map:'📍 ম্যাপে দেখুন',prof:'ℹ️ বিস্তারিত',nod:'বসার দিন তালিকায় নেই – হাসপাতালে ফোন করুন',doctors:'ডাক্তার'},
+  all:'সব',today:'আজ',anyday:'যেকোনো দিন',found:'জন ডাক্তার পাওয়া গেছে',none:'😔 কোনো ডাক্তার পাওয়া যায়নি। অন্য শব্দ লিখুন বা “সব মুছে ফেলুন” চাপুন।',sitsToday:'আজ বসছেন',map:'📍 ম্যাপে দেখুন',prof:'ℹ️ বিস্তারিত',nod:'বসার দিন তালিকায় নেই – হাসপাতালে ফোন করুন',doctors:'ডাক্তার'},
  en:{skip:'Skip to list',h1:'Find your doctor',sub:'Doctors of 7 Bogura hospitals – where they sit, which days, what time.',s1:'Pick a problem / department',s2:'Pick hospital & day',s3:'See the doctor’s timing',ph:'Type doctor, problem or hospital',hCat:'1. Which department?',hHosp:'2. Which hospital?',hDay:'3. Which day do you want to go?',reset:'Clear all',more:'Show more',sos:'In an emergency call',note:'⚠️ Doctor schedules can change. Please phone the hospital to confirm before you go. This is not an official hospital website.',
-  all:'All',today:'Today',anyday:'Any day',found:'doctors found',none:'😔 No doctor found. Try another word or press “Clear all”.',sitsToday:'✔ Sits today',map:'📍 Open map',prof:'ℹ️ Details',nod:'Days not listed – please call the hospital',doctors:'doctors'}};
+  all:'All',today:'Today',anyday:'Any day',found:'doctors found',none:'😔 No doctor found. Try another word or press “Clear all”.',sitsToday:'Sits today',map:'📍 Open map',prof:'ℹ️ Details',nod:'Days not listed – please call the hospital',doctors:'doctors'}};
 let L = 'bn'; try { L = localStorage.getItem('lang') === 'en' ? 'en' : 'bn'; } catch (e) {}
 const S = {q:'', c:'', h:'', d:'', n:PAGE};
 let DATA = null, C = {}, H = {}, view = [];
@@ -43,8 +43,9 @@ function card(d) {
   const h = H[d.h], c = C[d.c], t0 = todayIdx(), sits = d.sc.some(s => s.d.includes(t0));
   const slots = d.sc.map(s => `<div class="slot">${s.d.length ? `<div class="dd" aria-label="${s.d.map(i => (L === 'bn' ? DBF : DEF)[i]).join(', ')}">${[0,1,2,3,4,5,6].map(i => `<i class="${s.d.includes(i) ? 'on' : ''} ${i === t0 ? 'td' : ''}">${dn(i)}</i>`).join('')}</div>` : `<p class="nod">${t('nod')}</p>`}<div class="tm">🕒 ${esc(tm(s.t))}</div></div>`).join('');
   const map = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.q)}`;
+  const ini = (d.n.replace(/\b(prof|dr|md|mst|mrs|mr|miss|major|col|brig|lt|gen|ex)\b\.?/ig, '').match(/[A-Za-z]+/g) || ['D']).slice(0, 2).map(w => w[0].toUpperCase()).join('');
   return `<article class="doc" data-h="${d.h}">${sits ? `<span class="tag">${t('sitsToday')}</span>` : ''}
-  <h3>${esc(d.n)}</h3><p class="spec">${c.i} ${esc(L === 'bn' ? c.bn : c.en)}<small>${esc(d.s)}</small></p>
+  <div class="dh"><span class="av" aria-hidden="true">${ini}</span><div><h3>${esc(d.n)}</h3><p class="spec">${c.i} ${esc(L === 'bn' ? c.bn : c.en)}<small>${esc(d.s)}</small></p></div></div>
   <p class="hosp">🏥 <span>${esc(L === 'bn' ? h.bn : h.en)}</span></p>${slots}
   <div class="acts"><a href="${map}" target="_blank" rel="noopener noreferrer">${t('map')}</a>${d.l ? `<a href="${esc(d.l)}" target="_blank" rel="noopener noreferrer">${t('prof')}</a>` : ''}</div></article>`;
 }

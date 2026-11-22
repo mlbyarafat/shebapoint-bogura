@@ -4,6 +4,8 @@
 const BD = '০১২৩৪৫৬৭৮৯';
 const esc = s => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const bi = (b, e) => `<span class="bn">${esc(b)}</span><span class="en">${esc(e)}</span>`;
+const bnum = n => String(n).replace(/\d/g, d => BD[d]);
+const DBF = ['শনিবার','রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার'], DEF = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
 const nb = n => bi(String(n).replace(/\d/g, d => BD[d]), n);
 let L = 'bn'; try { L = localStorage.getItem('lang') === 'en' ? 'en' : 'bn'; } catch (e) {}
 document.documentElement.lang = L;
@@ -23,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     hq.addEventListener('keydown', e => { if (e.key === 'Enter') run(); });
   }
 
-  if (!$('stats') && !$('hlist') && !$('hquick')) return;
+  if (!$('stats') && !$('hlist') && !$('hquick') && !$('todaymsg')) return;
   fetch('doctors.json', {credentials: 'omit'}).then(r => r.json()).then(j => {
     const cnt = {}, byH = {};
     j.docs.forEach(d => { cnt[d.c] = (cnt[d.c] || 0) + 1; (byH[d.h] = byH[d.h] || {})[d.c] = (byH[d.h][d.c] || 0) + 1; });
@@ -36,7 +38,11 @@ document.addEventListener('DOMContentLoaded', () => {
         `<div class="stat"><b>${nb(depts)}</b><span>${bi('বিভাগ', 'Departments')}</span></div>`;
     }
     if ($('hquick')) {
-      $('hquick').innerHTML = j.hosp.map(h => `<a class="chip" data-h="${h.k}" href="doctors.html?h=${h.k}">${bi(h.sb, h.se)} (${nb(total(h.k))})</a>`).join('');
+      $('hquick').innerHTML = j.hosp.map(h => `<a class="hq" data-h="${h.k}" href="doctors.html?h=${h.k}"><b>${bi(h.sb, h.se)}</b><em>${nb(total(h.k))} ${bi('জন', 'doctors')}</em></a>`).join('');
+    }
+    if ($('todaymsg')) {
+      const t0 = (new Date().getDay() + 1) % 7, n = j.docs.filter(d => d.sc.some(s => s.d.includes(t0))).length;
+      $('todaymsg').innerHTML = bi(`আজ ${DBF[t0]} – ${bnum(n)} জন ডাক্তার বসছেন`, `Today, ${DEF[t0]} – ${n} doctors available`);
     }
     if ($('hlist')) {
       $('hlist').innerHTML = j.hosp.map(h => {

@@ -5,9 +5,9 @@ const BD = '০১২৩৪৫৬৭৮৯', PAGE = 24;
 const DB = ['শনি','রবি','সোম','মঙ্গল','বুধ','বৃহ','শুক্র'], DE = ['Sat','Sun','Mon','Tue','Wed','Thu','Fri'];
 const DBF = ['শনিবার','রবিবার','সোমবার','মঙ্গলবার','বুধবার','বৃহস্পতিবার','শুক্রবার'], DEF = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
 const TX = {
- bn:{skip:'সরাসরি তালিকায় যান',h1:'আপনার ডাক্তার খুঁজুন',sub:'বগুড়ার ৫টি হাসপাতালের ডাক্তার – কোথায় বসেন, কোন দিন, কয়টায়।',s1:'রোগ বা বিভাগ বাছুন',s2:'হাসপাতাল ও দিন বাছুন',s3:'ডাক্তারের সময় দেখুন',ph:'ডাক্তার, রোগ বা হাসপাতাল লিখুন',hCat:'১. কোন বিভাগের ডাক্তার?',hHosp:'২. কোন হাসপাতাল?',hDay:'৩. কোন দিন দেখাতে চান?',reset:'সব মুছে ফেলুন',more:'আরও দেখুন',sos:'জরুরি অবস্থায় ফোন করুন',note:'⚠️ ডাক্তারের সময় বদলাতে পারে। যাওয়ার আগে হাসপাতালে ফোন করে নিশ্চিত হয়ে নিন। এই সাইট কোনো হাসপাতালের অফিসিয়াল সাইট নয়।',
+ bn:{skip:'সরাসরি তালিকায় যান',h1:'আপনার ডাক্তার খুঁজুন',sub:'বগুড়ার ৭টি হাসপাতালের ডাক্তার – কোথায় বসেন, কোন দিন, কয়টায়।',s1:'রোগ বা বিভাগ বাছুন',s2:'হাসপাতাল ও দিন বাছুন',s3:'ডাক্তারের সময় দেখুন',ph:'ডাক্তার, রোগ বা হাসপাতাল লিখুন',hCat:'১. কোন বিভাগের ডাক্তার?',hHosp:'২. কোন হাসপাতাল?',hDay:'৩. কোন দিন দেখাতে চান?',reset:'সব মুছে ফেলুন',more:'আরও দেখুন',sos:'জরুরি অবস্থায় ফোন করুন',note:'⚠️ ডাক্তারের সময় বদলাতে পারে। যাওয়ার আগে হাসপাতালে ফোন করে নিশ্চিত হয়ে নিন। এই সাইট কোনো হাসপাতালের অফিসিয়াল সাইট নয়।',
   all:'সব',today:'আজ',anyday:'যেকোনো দিন',found:'জন ডাক্তার পাওয়া গেছে',none:'😔 কোনো ডাক্তার পাওয়া যায়নি। অন্য শব্দ লিখুন বা “সব মুছে ফেলুন” চাপুন।',sitsToday:'✔ আজ বসছেন',map:'📍 ম্যাপে দেখুন',prof:'ℹ️ বিস্তারিত',nod:'বসার দিন তালিকায় নেই – হাসপাতালে ফোন করুন',doctors:'ডাক্তার'},
- en:{skip:'Skip to list',h1:'Find your doctor',sub:'Doctors of 5 Bogura hospitals – where they sit, which days, what time.',s1:'Pick a problem / department',s2:'Pick hospital & day',s3:'See the doctor’s timing',ph:'Type doctor, problem or hospital',hCat:'1. Which department?',hHosp:'2. Which hospital?',hDay:'3. Which day do you want to go?',reset:'Clear all',more:'Show more',sos:'In an emergency call',note:'⚠️ Doctor schedules can change. Please phone the hospital to confirm before you go. This is not an official hospital website.',
+ en:{skip:'Skip to list',h1:'Find your doctor',sub:'Doctors of 7 Bogura hospitals – where they sit, which days, what time.',s1:'Pick a problem / department',s2:'Pick hospital & day',s3:'See the doctor’s timing',ph:'Type doctor, problem or hospital',hCat:'1. Which department?',hHosp:'2. Which hospital?',hDay:'3. Which day do you want to go?',reset:'Clear all',more:'Show more',sos:'In an emergency call',note:'⚠️ Doctor schedules can change. Please phone the hospital to confirm before you go. This is not an official hospital website.',
   all:'All',today:'Today',anyday:'Any day',found:'doctors found',none:'😔 No doctor found. Try another word or press “Clear all”.',sitsToday:'✔ Sits today',map:'📍 Open map',prof:'ℹ️ Details',nod:'Days not listed – please call the hospital',doctors:'doctors'}};
 let L = 'bn'; try { L = localStorage.getItem('lang') === 'en' ? 'en' : 'bn'; } catch (e) {}
 const S = {q:'', c:'', h:'', d:'', n:PAGE};
@@ -17,7 +17,9 @@ const esc = s => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>'
 const num = s => L === 'bn' ? String(s).replace(/\d/g, d => BD[d]) : String(s);
 const todayIdx = () => (new Date().getDay() + 1) % 7;
 const dn = i => (L === 'bn' ? DB : DE)[i];
-function tm(s) { // "4:00 PM" -> "বিকাল ৪:০০" so nobody needs to read AM/PM
+const mn = n => L !== 'bn' ? n : n.replace(/first and last/i, 'মাসের প্রথম ও শেষ').replace(/2nd and last/i, 'মাসের ২য় ও শেষ').replace(/^last/i, 'মাসের শেষ').replace(/^first/i, 'মাসের প্রথম').replace(/\s*of every month/i, '').replace(/saturday|sunday|monday|tuesday|wednesday|thursday|friday/gi, m => DBF[DEF.findIndex(x => x.toLowerCase() === m.toLowerCase())]);
+function tm(s) {
+  const i = s.indexOf(' | '); if (i > -1) return mn(s.slice(0, i)) + ' · ' + tm(s.slice(i + 3)); // "4:00 PM" -> "বিকাল ৪:০০" so nobody needs to read AM/PM
   if (L !== 'bn') return s;
   return num(s.replace(/(\d{1,2}):(\d{2}) (AM|PM)/gi, (_, h, m, ap) => {
     h = +h; const pm = ap.toUpperCase() === 'PM';
@@ -79,6 +81,12 @@ document.addEventListener('click', e => {
 });
 let timer; $('q').addEventListener('input', e => { clearTimeout(timer); timer = setTimeout(() => { S.q = e.target.value.slice(0, 60); S.n = PAGE; render(); }, 150); });
 fetch('doctors.json', {credentials: 'omit'}).then(r => r.json()).then(j => {
-  DATA = j; DATA.cats.forEach(c => C[c.k] = c); DATA.hosp.forEach(h => H[h.k] = h); DATA.docs.forEach(hs); applyLang();
+  DATA = j; DATA.cats.forEach(c => C[c.k] = c); DATA.hosp.forEach(h => H[h.k] = h); DATA.docs.forEach(hs);
+  const P = new URLSearchParams(location.search); // links from Home / Hospitals pages: doctors.html?h=ibn&c=heart&d=today&q=...
+  if (H[P.get('h')]) S.h = P.get('h');
+  if (C[P.get('c')]) S.c = P.get('c');
+  if (P.get('d') === 'today') S.d = String(todayIdx()); else if (/^[0-6]$/.test(P.get('d') || '')) S.d = P.get('d');
+  if (P.get('q')) { S.q = P.get('q').slice(0, 60); $('q').value = S.q; }
+  applyLang();
 }).catch(() => { $('list').innerHTML = '<p class="none">⚠️ Internet / ইন্টারনেট সমস্যা। পরে আবার চেষ্টা করুন।</p>'; });
 })();

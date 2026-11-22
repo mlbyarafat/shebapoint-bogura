@@ -10,50 +10,46 @@
 <meta name="theme-color" content="#0f4c3f">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="style.css">
+<script src="site.js"></script>
 </head>
 <body>
-<a class="skip" href="#list" data-t="skip">সরাসরি তালিকায় যান</a>
 <header class="top">
-  <a class="brand" href="./" aria-label="Sheba Point Bogura">
+  <a class="brand" href="index.html" aria-label="Sheba Point Bogura">
     <svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><path class="lg-pin" d="M32 2C18 2 8 12 8 25c0 17 20 35 24 37 4-2 24-20 24-37C56 12 46 2 32 2z"/><circle class="lg-dot" cx="32" cy="25" r="17"/><path class="lg-pulse" d="M17 26h9l4-9 6 18 4-9h7"/></svg>
     <span><b class="bn-name">সেবা পয়েন্ট</b><small>Sheba Point · Bogura</small></span>
   </a>
   <button id="lang" class="lang" type="button" aria-label="Language">English</button>
 </header>
-
+<nav class="menu" aria-label="Main menu"><a href="index.html" aria-current="page"><span class="bn">হোম</span><span class="en">Home</span></a><a href="doctors.html"><span class="bn">ডাক্তার</span><span class="en">Doctors</span></a><a href="hospitals.html"><span class="bn">হাসপাতাল</span><span class="en">Hospitals</span></a><a href="about.html"><span class="bn">আমাদের সম্পর্কে</span><span class="en">About</span></a><a href="contact.html"><span class="bn">যোগাযোগ</span><span class="en">Contact</span></a></nav>
 <section class="hero">
-  <h1 data-t="h1">আপনার ডাক্তার খুঁজুন</h1>
-  <p data-t="sub">বগুড়ার ৫টি হাসপাতালের ডাক্তার – কোথায় বসেন, কোন দিন, কয়টায়।</p>
-  <ol class="steps">
-    <li><i>১</i><span data-t="s1">রোগ বা বিভাগ বাছুন</span></li>
-    <li><i>২</i><span data-t="s2">হাসপাতাল ও দিন বাছুন</span></li>
-    <li><i>৩</i><span data-t="s3">ডাক্তারের সময় দেখুন</span></li>
-  </ol>
-  <label class="search"><span class="sr" data-t="ph">ডাক্তার, রোগ বা হাসপাতাল লিখুন</span>
-    <input id="q" type="search" maxlength="60" autocomplete="off" enterkeyhint="search" data-p="ph">
-  </label>
+  <h1><span class="bn">আপনার ডাক্তার খুঁজুন</span><span class="en">Find your doctor</span></h1>
+  <p><span class="bn">বগুড়ার ৭টি হাসপাতালের ডাক্তার – কোথায় বসেন, কোন দিন, কয়টায়। এক জায়গায়, বিনা খরচে।</span><span class="en">Doctors of 7 Bogura hospitals – where they sit, which days, what time. All in one place, free.</span></p>
+  <div class="hsearch">
+    <label class="sr" for="hq"><span class="bn">ডাক্তার, রোগ বা হাসপাতাল লিখুন</span><span class="en">Type doctor, problem or hospital</span></label>
+    <input id="hq" type="search" maxlength="60" autocomplete="off" enterkeyhint="search" placeholder="ডাক্তার, রোগ বা হাসপাতাল">
+    <button id="hgo" class="btn" type="button"><span class="bn">🔍 খুঁজুন</span><span class="en">🔍 Search</span></button>
+  </div>
+  <div class="cta"><a class="btn" href="doctors.html?d=today"><span class="bn">📅 আজ কারা বসছেন?</span><span class="en">📅 Who sits today?</span></a><a class="btn alt" href="doctors.html"><span class="bn">সব ডাক্তার দেখুন</span><span class="en">See all doctors</span></a></div>
+  <div id="stats" class="stats"></div>
 </section>
-
 <main>
-  <h2 class="h" data-t="hCat">১. কোন বিভাগের ডাক্তার?</h2>
-  <div id="cats" class="cats" role="group"></div>
-
-  <h2 class="h" data-t="hHosp">২. কোন হাসপাতাল?</h2>
-  <div id="hosp" class="chips" role="group"></div>
-
-  <h2 class="h" data-t="hDay">৩. কোন দিন দেখাতে চান?</h2>
-  <div id="days" class="chips" role="group"></div>
-
-  <div class="bar"><p id="count" role="status" aria-live="polite"></p><button id="reset" class="ghost" type="button" data-t="reset">সব মুছে ফেলুন</button></div>
-  <div id="list" class="list" tabindex="-1"></div>
-  <button id="more" class="more" type="button" data-t="more" hidden>আরও দেখুন</button>
+  <h2 class="h"><span class="bn">কোন বিভাগের ডাক্তার?</span><span class="en">Which department?</span></h2>
+  <div class="qcats"><a href="doctors.html?c=heart"><span class="ic">❤️</span><span class="bn">হৃদরোগ</span><span class="en">Heart</span></a><a href="doctors.html?c=child"><span class="ic">👶</span><span class="bn">শিশু রোগ</span><span class="en">Child</span></a><a href="doctors.html?c=gyn"><span class="ic">🤰</span><span class="bn">স্ত্রীরোগ ও প্রসূতি</span><span class="en">Women / Gynae</span></a><a href="doctors.html?c=med"><span class="ic">🩺</span><span class="bn">মেডিসিন</span><span class="en">General Medicine</span></a><a href="doctors.html?c=bone"><span class="ic">🦴</span><span class="bn">হাড় ও জয়েন্ট</span><span class="en">Bone & Joint</span></a><a href="doctors.html?c=eye"><span class="ic">👁️</span><span class="bn">চক্ষু</span><span class="en">Eye</span></a><a href="doctors.html?c=skin"><span class="ic">🧴</span><span class="bn">চর্ম রোগ</span><span class="en">Skin</span></a><a href="doctors.html?c=dent"><span class="ic">🦷</span><span class="bn">দাঁতের চিকিৎসা</span><span class="en">Dental</span></a><a href="doctors.html?c=neuro"><span class="ic">🧠</span><span class="bn">স্নায়ু ও মস্তিষ্ক</span><span class="en">Brain & Nerve</span></a><a href="doctors.html?c=kid"><span class="ic">🫘</span><span class="bn">কিডনি</span><span class="en">Kidney</span></a><a href="doctors.html"><span class="ic">➕</span><span class="bn">সব বিভাগ</span><span class="en">All departments</span></a></div>
+  <h2 class="h"><span class="bn">হাসপাতাল অনুযায়ী দেখুন</span><span class="en">Browse by hospital</span></h2>
+  <div id="hquick" class="chips"></div>
+  <h2 class="h"><span class="bn">কীভাবে কাজ করে?</span><span class="en">How it works</span></h2>
+  <ol class="steps">
+    <li><i><span class="bn">১</span><span class="en">1</span></i><span><span class="bn">রোগ বা বিভাগ বাছুন</span><span class="en">Pick a problem / department</span></span></li>
+    <li><i><span class="bn">২</span><span class="en">2</span></i><span><span class="bn">হাসপাতাল ও দিন বাছুন</span><span class="en">Pick hospital & day</span></span></li>
+    <li><i><span class="bn">৩</span><span class="en">3</span></i><span><span class="bn">ডাক্তারের সময় দেখুন</span><span class="en">See the doctor’s timing</span></span></li>
+  </ol>
 </main>
-
-<aside class="sos"><b>🚑 <span data-t="sos">জরুরি অবস্থায় ফোন করুন</span></b><a href="tel:999">৯৯৯</a></aside>
+<aside class="sos"><b>🚑 <span class="bn">জরুরি অবস্থায় ফোন করুন</span><span class="en">In an emergency call</span></b><a href="tel:999"><span class="bn">৯৯৯</span><span class="en">999</span></a></aside>
 <footer>
-  <p data-t="note">⚠️ ডাক্তারের সময় বদলাতে পারে। যাওয়ার আগে হাসপাতালে ফোন করে নিশ্চিত হয়ে নিন। এই সাইট কোনো হাসপাতালের অফিসিয়াল সাইট নয়।</p>
+  <nav class="flinks" aria-label="Footer"><a href="about.html"><span class="bn">আমাদের সম্পর্কে</span><span class="en">About</span></a><a href="contact.html"><span class="bn">যোগাযোগ</span><span class="en">Contact</span></a><a href="privacy.html"><span class="bn">গোপনীয়তা নীতি</span><span class="en">Privacy Policy</span></a><a href="disclaimer.html"><span class="bn">দাবিত্যাগ</span><span class="en">Disclaimer</span></a></nav>
+  <p><span class="bn">⚠️ ডাক্তারের সময় বদলাতে পারে। যাওয়ার আগে হাসপাতালে ফোন করে নিশ্চিত হয়ে নিন। এই সাইট কোনো হাসপাতালের অফিসিয়াল সাইট নয়।</span><span class="en">⚠️ Doctor schedules can change. Please phone the hospital to confirm before you go. This is not an official hospital website.</span></p>
   <p>© Sheba Point Bogura</p>
 </footer>
-<script src="app.js" defer></script>
+
 </body>
 </html>

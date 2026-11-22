@@ -1,0 +1,53 @@
+(() => {
+'use strict';
+// Shared by Home, Hospitals, About, Contact, Privacy, Disclaimer pages (the Doctors page uses app.js).
+const BD = '০১২৩৪৫৬৭৮৯';
+const esc = s => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const bi = (b, e) => `<span class="bn">${esc(b)}</span><span class="en">${esc(e)}</span>`;
+const nb = n => bi(String(n).replace(/\d/g, d => BD[d]), n);
+let L = 'bn'; try { L = localStorage.getItem('lang') === 'en' ? 'en' : 'bn'; } catch (e) {}
+document.documentElement.lang = L;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const $ = id => document.getElementById(id), btn = $('lang');
+  const paint = () => { document.documentElement.lang = L; if (btn && !$('q')) btn.textContent = L === 'bn' ? 'English' : 'বাংলা'; };
+  paint();
+  const ph = () => { const q = $('hq'); if (q) q.placeholder = L === 'bn' ? 'ডাক্তার, রোগ বা হাসপাতাল' : 'Doctor, problem or hospital'; };
+  ph();
+  if (btn && !$('q')) btn.addEventListener('click', () => { L = L === 'bn' ? 'en' : 'bn'; try { localStorage.setItem('lang', L); } catch (x) {} paint(); ph(); });
+
+  const go = $('hgo'), hq = $('hq'); // Home page search box -> Doctors page
+  if (go && hq) {
+    const run = () => { location.href = 'doctors.html' + (hq.value.trim() ? '?q=' + encodeURIComponent(hq.value.trim().slice(0, 60)) : ''); };
+    go.addEventListener('click', run);
+    hq.addEventListener('keydown', e => { if (e.key === 'Enter') run(); });
+  }
+
+  if (!$('stats') && !$('hlist') && !$('hquick')) return;
+  fetch('doctors.json', {credentials: 'omit'}).then(r => r.json()).then(j => {
+    const cnt = {}, byH = {};
+    j.docs.forEach(d => { cnt[d.c] = (cnt[d.c] || 0) + 1; (byH[d.h] = byH[d.h] || {})[d.c] = (byH[d.h][d.c] || 0) + 1; });
+    const total = k => j.docs.filter(d => d.h === k).length, C = {}; j.cats.forEach(c => C[c.k] = c);
+    if ($('stats')) {
+      const depts = Object.keys(cnt).filter(k => k !== 'other').length;
+      $('stats').innerHTML =
+        `<div class="stat"><b>${nb(j.docs.length)}</b><span>${bi('ডাক্তার', 'Doctors')}</span></div>` +
+        `<div class="stat"><b>${nb(j.hosp.length)}</b><span>${bi('হাসপাতাল', 'Hospitals')}</span></div>` +
+        `<div class="stat"><b>${nb(depts)}</b><span>${bi('বিভাগ', 'Departments')}</span></div>`;
+    }
+    if ($('hquick')) {
+      $('hquick').innerHTML = j.hosp.map(h => `<a class="chip" data-h="${h.k}" href="doctors.html?h=${h.k}">${bi(h.sb, h.se)} (${nb(total(h.k))})</a>`).join('');
+    }
+    if ($('hlist')) {
+      $('hlist').innerHTML = j.hosp.map(h => {
+        const top = Object.entries(byH[h.k] || {}).filter(([k]) => k !== 'other').sort((a, b) => b[1] - a[1]).slice(0, 5).map(([k]) => C[k]);
+        const sp = top.map(c => `${c.i} ${bi(c.bn, c.en)}`).join(' · ');
+        return `<article class="hcard" data-h="${h.k}"><h3>${bi(h.bn, h.en)}</h3>
+          <p class="n">👨‍⚕️ ${nb(total(h.k))} ${bi('জন ডাক্তার', 'doctors')}</p>${sp ? `<p class="sp">${sp}</p>` : ''}
+          <div class="acts"><a href="doctors.html?h=${h.k}">${bi('ডাক্তারদের দেখুন', 'See doctors')}</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.q)}" target="_blank" rel="noopener noreferrer">${bi('📍 ম্যাপে দেখুন', '📍 Open map')}</a></div></article>`;
+      }).join('');
+    }
+  }).catch(() => {});
+});
+})();

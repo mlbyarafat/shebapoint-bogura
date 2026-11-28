@@ -1,6 +1,6 @@
-"""Cleans the 6 hospital Excel files into one fast, static data/doctors.json.
+"""Cleans the 7 hospital Excel files into one fast, static data/doctors.json.
 Run:  python tools/build_data.py"""
-import re, json, glob, os
+import re, json, glob, os, datetime
 import pandas as pd
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 HOSP = [  # key, file prefix, Bangla, English, short Bangla, short English, map query
@@ -8,7 +8,9 @@ HOSP = [  # key, file prefix, Bangla, English, short Bangla, short English, map 
  ("ibn","ibn_sina","ইবনে সিনা ডায়াগনস্টিক ও কনসালটেশন সেন্টার","Ibn Sina Diagnostic & Consultation Center","ইবনে সিনা","Ibn Sina","Ibn Sina Diagnostic Bogura"),
  ("pop","popular","পপুলার ডায়াগনস্টিক সেন্টার","Popular Diagnostic Centre","পপুলার","Popular","Popular Diagnostic Centre Bogura"),
  ("hc","health_city","হেলথ সিটি বগুড়া","Health City Bogura","হেলথ সিটি","Health City","Health City Bogura"),
- ("saic","saic","সাইক জেনারেল হাসপাতাল","SAIC General Hospital","সাইক","SAIC","SAIC General Hospital Bogura")]
+ ("saic","saic","সাইক জেনারেল হাসপাতাল","SAIC General Hospital","সাইক","SAIC","SAIC General Hospital Bogura"),
+ ("united","united_general","ইউনাইটেড জেনারেল হাসপাতাল","United General Hospital","ইউনাইটেড","United","United General Hospital Bogura"),
+ ("banani","banani_general","বনানী জেনারেল হাসপাতাল","Banani General Hospital","বনানী","Banani","Banani General Hospital Bogura")]
 CATS = [  # key, Bangla, English, icon, regex (first match wins)
  ("dent","দাঁতের চিকিৎসা","Dental","🦷",r"dent|orthodont|prosthodont|endodont|periodont|maxillofacial|\boral\b"),
  ("onc","ক্যান্সার","Cancer","🎗️",r"oncolog|cancer"),
@@ -54,6 +56,7 @@ def f(h, m, ap): return f"{int(h)}:{m or '00'} {ap.upper()}"
 def times_of(s): return [f"{f(*m[:3])} – {f(*m[3:])}" for m in T.findall(s)]
 def clean(s): return re.sub(r"\s+", " ", str(s)).strip()
 def cat_of(s):
+    if re.search(r"orthop", s, re.I): return "bone"  # "Pediatric Orthopedic" is a bone doctor, not a child doctor
     for k, *_r, rx in CATS:
         if re.search(rx, s, re.I): return k
 def schedule(days, time):
@@ -65,7 +68,10 @@ def schedule(days, time):
         # several day-specific time ranges in one text (Ibn Sina style) -> show original text, never guess
         mixed = len(ts) > 1 and len(tg) == 1 and bool(re.search(r"(sat|sun|mon|tue|wed|thu|fri)[a-z]*\s*[-:]", tt, re.I))
         raw = (not ts) or "month" in tt.lower() or mixed
-        out.append({"d": d, "t": clean(tt) if raw else " & ".join(ts)})
+        txt = clean(tt) if raw else " & ".join(ts)
+        if "month" in str(dd).lower():  # e.g. "Last Thursday of every month" - keep the note, not just the weekday
+            txt = clean(dd) + " | " + txt
+        out.append({"d": d, "t": txt})
     return out
 docs = []
 for key, pre, *_ in HOSP:
@@ -78,8 +84,10 @@ for key, pre, *_ in HOSP:
             link = str(r.get("Profile Link", "")).strip()
             docs.append({"n": n, "s": sp, "c": cat_of(sp), "h": key, "sc": schedule(r.iloc[3], r.iloc[4]),
                          "l": link if link.startswith("https://") else ""})
-out = {"cats": [dict(k=k, bn=b, en=e, i=i) for k, b, e, i, _ in CATS],
+out = {"updated": datetime.date.today().isoformat(),  # shown on the site as "last updated"
+       "cats": [dict(k=k, bn=b, en=e, i=i) for k, b, e, i, _ in CATS],
        "hosp": [dict(k=k, bn=b, en=e, sb=sb, se=se, q=q) for k, _, b, e, sb, se, q in HOSP],
        "docs": docs}
-json.dump(out, open(f"{ROOT}/data/doctors.json", "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+for dest in ("data", "docs"):  # data/ is for the Flask app, docs/ is the live GitHub Pages site
+    json.dump(out, open(f"{ROOT}/{dest}/doctors.json", "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
 print(len(docs), "doctors | other:", sum(d["c"] == "other" for d in docs), "| no-days:", sum(not all(s["d"] for s in d["sc"]) for d in docs), "| raw-time:", sum(any("–" not in s["t"] for s in d["sc"]) for d in docs))

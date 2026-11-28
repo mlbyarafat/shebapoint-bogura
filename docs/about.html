@@ -11,13 +11,14 @@
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/hind-siliguri-bengali-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
+<script src="icons.js"></script>
 <script src="site.js"></script>
 </head>
 <body>
 <a class="skip" href="#main"><span class="bn">মূল অংশে যান</span><span class="en">Skip to content</span></a>
 <header class="top"><div class="bar">
   <a class="brand" href="index.html" aria-label="Sheba Point Bogura"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><path class="lg-pin" d="M32 2C18 2 8 12 8 25c0 17 20 35 24 37 4-2 24-20 24-37C56 12 46 2 32 2z"/><circle class="lg-dot" cx="32" cy="25" r="17"/><path class="lg-pulse" d="M17 26h9l4-9 6 18 4-9h7"/></svg><span><b>সেবা পয়েন্ট</b><small>Sheba Point · Bogura</small></span></a>
-  <nav class="menu" aria-label="Main menu"><a href="index.html"><i aria-hidden="true">🏠</i><span class="bn">হোম</span><span class="en">Home</span></a><a href="doctors.html"><i aria-hidden="true">🩺</i><span class="bn">ডাক্তার</span><span class="en">Doctors</span></a><a href="hospitals.html"><i aria-hidden="true">🏥</i><span class="bn">হাসপাতাল</span><span class="en">Hospitals</span></a><a href="about.html" aria-current="page"><i aria-hidden="true">ℹ️</i><span class="bn">সম্পর্কে</span><span class="en">About</span></a><a href="contact.html"><i aria-hidden="true">📞</i><span class="bn">যোগাযোগ</span><span class="en">Contact</span></a></nav>
+  <nav class="menu" aria-label="Main menu"><a href="index.html"><i aria-hidden="true"><span class="ico" data-ic="home"></span></i><span class="bn">হোম</span><span class="en">Home</span></a><a href="doctors.html"><i aria-hidden="true"><span class="ico" data-ic="stethoscope"></span></i><span class="bn">ডাক্তার</span><span class="en">Doctors</span></a><a href="hospitals.html"><i aria-hidden="true"><span class="ico" data-ic="hospital"></span></i><span class="bn">হাসপাতাল</span><span class="en">Hospitals</span></a><a href="about.html" aria-current="page"><i aria-hidden="true"><span class="ico" data-ic="info"></span></i><span class="bn">সম্পর্কে</span><span class="en">About</span></a><a href="contact.html"><i aria-hidden="true"><span class="ico" data-ic="phone"></span></i><span class="bn">যোগাযোগ</span><span class="en">Contact</span></a></nav>
   <button id="lang" class="lang" type="button" aria-label="Language">English</button>
 </div></header>
 <section class="phead"><div class="wrap"><h1><span class="bn">আমাদের সম্পর্কে</span><span class="en">About us</span></h1></div></section>
@@ -33,15 +34,15 @@
 </ul>
 <h2><span class="bn">তথ্য কোথা থেকে আসে</span><span class="en">Where the information comes from</span></h2>
 <p><span class="bn">তথ্য সংগ্রহ করা হয়েছে হাসপাতাল ও ডাক্তার-তালিকার প্রকাশ্য ওয়েবসাইট থেকে। আমরা সেগুলো পরিষ্কার করে একই ছাঁচে সাজিয়েছি। তাই কোনো তথ্য পুরোনো বা ভুল হতে পারে।</span><span class="en">The data is collected from the public websites of hospitals and doctor-listing sites. We clean it and put it into one format, so some details may be outdated or wrong.</span></p>
-<div class="box warn"><p><span class="bn">⚠️ এটি কোনো হাসপাতালের অফিসিয়াল সাইট নয় এবং আমরা চিকিৎসা পরামর্শ দিই না। যাওয়ার আগে অবশ্যই হাসপাতালে ফোন করে ডাক্তারের সময় নিশ্চিত করুন।</span><span class="en">⚠️ This is not an official hospital website and we do not give medical advice. Always phone the hospital to confirm the doctor’s timing before you go.</span></p></div>
+<div class="box warn"><p><span class="bn"><span class="ico" data-ic="alert"></span> এটি কোনো হাসপাতালের অফিসিয়াল সাইট নয় এবং আমরা চিকিৎসা পরামর্শ দিই না। যাওয়ার আগে অবশ্যই হাসপাতালে ফোন করে ডাক্তারের সময় নিশ্চিত করুন।</span><span class="en"><span class="ico" data-ic="alert"></span> This is not an official hospital website and we do not give medical advice. Always phone the hospital to confirm the doctor’s timing before you go.</span></p></div>
 <h2><span class="bn">ভুল পেলে জানান</span><span class="en">Found a mistake?</span></h2>
 <p><span class="bn">কোনো ডাক্তারের সময় বদলে গেলে বা নতুন হাসপাতাল যোগ করতে চাইলে <a href="contact.html">যোগাযোগ</a> পাতা থেকে আমাদের জানান।</span><span class="en">If a doctor’s timing has changed or you want a hospital added, tell us through the <a href="contact.html">Contact</a> page.</span></p>
 <div class="cta"><a class="btn" href="doctors.html"><span class="bn">ডাক্তার খুঁজুন</span><span class="en">Find a doctor</span></a></div>
 </article>
-<aside class="sos"><b>🚑 <span class="bn">জরুরি অবস্থায় ফোন করুন</span><span class="en">In an emergency call</span></b><a href="tel:999"><span class="bn">৯৯৯</span><span class="en">999</span></a></aside>
+<aside class="sos"><b><span class="ico" data-ic="ambulance"></span> <span class="bn">জরুরি অবস্থায় ফোন করুন</span><span class="en">In an emergency call</span></b><a href="tel:999"><span class="bn">৯৯৯</span><span class="en">999</span></a></aside>
 <footer>
   <nav class="flinks" aria-label="Footer"><a href="about.html"><span class="bn">আমাদের সম্পর্কে</span><span class="en">About</span></a><a href="contact.html"><span class="bn">যোগাযোগ</span><span class="en">Contact</span></a><a href="privacy.html"><span class="bn">গোপনীয়তা নীতি</span><span class="en">Privacy Policy</span></a><a href="disclaimer.html"><span class="bn">দাবিত্যাগ</span><span class="en">Disclaimer</span></a></nav>
-  <p><span class="bn">⚠️ ডাক্তারের সময় বদলাতে পারে। যাওয়ার আগে হাসপাতালে ফোন করে নিশ্চিত হয়ে নিন। এই সাইট কোনো হাসপাতালের অফিসিয়াল সাইট নয়।</span><span class="en">⚠️ Doctor schedules can change. Please phone the hospital to confirm before you go. This is not an official hospital website.</span></p>
+  <p><span class="bn"><span class="ico" data-ic="alert"></span> ডাক্তারের সময় বদলাতে পারে। যাওয়ার আগে হাসপাতালে ফোন করে নিশ্চিত হয়ে নিন। এই সাইট কোনো হাসপাতালের অফিসিয়াল সাইট নয়।</span><span class="en"><span class="ico" data-ic="alert"></span> Doctor schedules can change. Please phone the hospital to confirm before you go. This is not an official hospital website.</span></p>
   <p>© Sheba Point Bogura</p>
 </footer>
 

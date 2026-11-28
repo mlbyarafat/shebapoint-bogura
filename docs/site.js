@@ -47,11 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if ($('hlist')) {
       $('hlist').innerHTML = j.hosp.map(h => {
         const top = Object.entries(byH[h.k] || {}).filter(([k]) => k !== 'other').sort((a, b) => b[1] - a[1]).slice(0, 5).map(([k]) => C[k]);
-        const sp = top.map(c => `${c.i} ${bi(c.bn, c.en)}`).join(' · ');
+        const sp = top.map(c => `${IC(c.k)} ${bi(c.bn, c.en)}`).join(' · ');
         return `<article class="hcard" data-h="${h.k}"><h3>${bi(h.bn, h.en)}</h3>
-          <p class="n">👨‍⚕️ ${nb(total(h.k))} ${bi('জন ডাক্তার', 'doctors')}</p>${sp ? `<p class="sp">${sp}</p>` : ''}
+          <p class="n">${IC('doctor')} ${nb(total(h.k))} ${bi('জন ডাক্তার', 'doctors')}</p>${sp ? `<p class="sp">${sp}</p>` : ''}
           <div class="acts"><a href="doctors.html?h=${h.k}">${bi('ডাক্তারদের দেখুন', 'See doctors')}</a>
-          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.q)}" target="_blank" rel="noopener noreferrer">${bi('📍 ম্যাপে দেখুন', '📍 Open map')}</a></div></article>`;
+          <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(h.q)}" target="_blank" rel="noopener noreferrer">${IC('pin')} ${bi('ম্যাপে দেখুন', 'Open map')}</a></div></article>`;
       }).join('');
     }
   }).catch(() => {});

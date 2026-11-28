@@ -11,13 +11,14 @@
 <link rel="icon" href="logo.svg" type="image/svg+xml">
 <link rel="preload" href="fonts/hind-siliguri-bengali-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
+<script src="icons.js"></script>
 <script src="site.js"></script>
 </head>
 <body>
 <a class="skip" href="#main"><span class="bn">মূল অংশে যান</span><span class="en">Skip to content</span></a>
 <header class="top"><div class="bar">
   <a class="brand" href="index.html" aria-label="Sheba Point Bogura"><svg class="logo" viewBox="0 0 64 64" aria-hidden="true"><path class="lg-pin" d="M32 2C18 2 8 12 8 25c0 17 20 35 24 37 4-2 24-20 24-37C56 12 46 2 32 2z"/><circle class="lg-dot" cx="32" cy="25" r="17"/><path class="lg-pulse" d="M17 26h9l4-9 6 18 4-9h7"/></svg><span><b>সেবা পয়েন্ট</b><small>Sheba Point · Bogura</small></span></a>
-  <nav class="menu" aria-label="Main menu"><a href="index.html"><i aria-hidden="true">🏠</i><span class="bn">হোম</span><span class="en">Home</span></a><a href="doctors.html"><i aria-hidden="true">🩺</i><span class="bn">ডাক্তার</span><span class="en">Doctors</span></a><a href="hospitals.html"><i aria-hidden="true">🏥</i><span class="bn">হাসপাতাল</span><span class="en">Hospitals</span></a><a href="about.html"><i aria-hidden="true">ℹ️</i><span class="bn">সম্পর্কে</span><span class="en">About</span></a><a href="contact.html" aria-current="page"><i aria-hidden="true">📞</i><span class="bn">যোগাযোগ</span><span class="en">Contact</span></a></nav>
+  <nav class="menu" aria-label="Main menu"><a href="index.html"><i aria-hidden="true"><span class="ico" data-ic="home"></span></i><span class="bn">হোম</span><span class="en">Home</span></a><a href="doctors.html"><i aria-hidden="true"><span class="ico" data-ic="stethoscope"></span></i><span class="bn">ডাক্তার</span><span class="en">Doctors</span></a><a href="hospitals.html"><i aria-hidden="true"><span class="ico" data-ic="hospital"></span></i><span class="bn">হাসপাতাল</span><span class="en">Hospitals</span></a><a href="about.html"><i aria-hidden="true"><span class="ico" data-ic="info"></span></i><span class="bn">সম্পর্কে</span><span class="en">About</span></a><a href="contact.html" aria-current="page"><i aria-hidden="true"><span class="ico" data-ic="phone"></span></i><span class="bn">যোগাযোগ</span><span class="en">Contact</span></a></nav>
   <button id="lang" class="lang" type="button" aria-label="Language">English</button>
 </div></header>
 <section class="phead"><div class="wrap"><h1><span class="bn">যোগাযোগ</span><span class="en">Contact us</span></h1></div></section>
@@ -25,21 +26,21 @@
 <p><span class="bn">ডাক্তারের তথ্যে ভুল, নতুন ডাক্তার বা হাসপাতাল যোগ করা, পরামর্শ বা অন্য কিছু জানাতে নিচের যেকোনো উপায়ে যোগাযোগ করুন।</span><span class="en">To report a mistake, add a doctor or hospital, give a suggestion or ask anything else, contact us in any way below.</span></p>
 <div class="cgrid">
 <!-- ===== EDIT BELOW: replace the example email / phone / Facebook link with your real ones ===== -->
-<div class="box"><h3>📧 <span class="bn">ইমেইল</span><span class="en">Email</span></h3><p><a href="mailto:YOUR-EMAIL@example.com">YOUR-EMAIL@example.com</a></p></div>
-<div class="box"><h3>📞 <span class="bn">ফোন / হোয়াটসঅ্যাপ</span><span class="en">Phone / WhatsApp</span></h3><p><a href="tel:+8801XXXXXXXXX">+880 1XXX-XXXXXX</a></p></div>
-<div class="box"><h3>💬 <span class="bn">ফেসবুক</span><span class="en">Facebook</span></h3><p><a href="https://www.facebook.com/YOUR-PAGE" target="_blank" rel="noopener noreferrer">facebook.com/YOUR-PAGE</a></p></div>
+<div class="box"><h3><span class="ico" data-ic="mail"></span> <span class="bn">ইমেইল</span><span class="en">Email</span></h3><p><a href="mailto:YOUR-EMAIL@example.com">YOUR-EMAIL@example.com</a></p></div>
+<div class="box"><h3><span class="ico" data-ic="phone"></span> <span class="bn">ফোন / হোয়াটসঅ্যাপ</span><span class="en">Phone / WhatsApp</span></h3><p><a href="tel:+8801XXXXXXXXX">+880 1XXX-XXXXXX</a></p></div>
+<div class="box"><h3><span class="ico" data-ic="message"></span> <span class="bn">ফেসবুক</span><span class="en">Facebook</span></h3><p><a href="https://www.facebook.com/YOUR-PAGE" target="_blank" rel="noopener noreferrer">facebook.com/YOUR-PAGE</a></p></div>
 <!-- ===== END EDIT ===== -->
 </div>
 <h2><span class="bn">তথ্য সংশোধনের অনুরোধ</span><span class="en">Request a correction</span></h2>
 <p><span class="bn">ইমেইল পাঠানোর সময় এগুলো লিখে দিন: ডাক্তারের নাম, হাসপাতাল, কোন তথ্য ভুল এবং সঠিক তথ্য কী।</span><span class="en">When you email, please include: the doctor’s name, the hospital, what is wrong and what the correct information is.</span></p>
 <h2><span class="bn">হাসপাতাল বা ডাক্তারদের জন্য</span><span class="en">For hospitals and doctors</span></h2>
 <p><span class="bn">আপনার হাসপাতালের ডাক্তারদের তালিকা যোগ করতে বা হালনাগাদ করতে চাইলে ডাক্তারের নাম, বিভাগ, বসার দিন ও সময়সহ আমাদের ইমেইল করুন।</span><span class="en">To add or update your hospital’s doctors, email us the doctor’s name, department, sitting days and timings.</span></p>
-<div class="box warn"><p><span class="bn">🚑 জরুরি অবস্থায় আমাদের জন্য অপেক্ষা না করে সরাসরি <a href="tel:999">৯৯৯</a> নম্বরে ফোন করুন বা নিকটস্থ হাসপাতালে যান। আমরা চিকিৎসা-সংক্রান্ত প্রশ্নের উত্তর দিই না।</span><span class="en">🚑 In an emergency do not wait for us – call <a href="tel:999">999</a> or go to the nearest hospital. We cannot answer medical questions.</span></p></div>
+<div class="box warn"><p><span class="bn"><span class="ico" data-ic="ambulance"></span> জরুরি অবস্থায় আমাদের জন্য অপেক্ষা না করে সরাসরি <a href="tel:999">৯৯৯</a> নম্বরে ফোন করুন বা নিকটস্থ হাসপাতালে যান। আমরা চিকিৎসা-সংক্রান্ত প্রশ্নের উত্তর দিই না।</span><span class="en"><span class="ico" data-ic="ambulance"></span> In an emergency do not wait for us – call <a href="tel:999">999</a> or go to the nearest hospital. We cannot answer medical questions.</span></p></div>
 </article>
-<aside class="sos"><b>🚑 <span class="bn">জরুরি অবস্থায় ফোন করুন</span><span class="en">In an emergency call</span></b><a href="tel:999"><span class="bn">৯৯৯</span><span class="en">999</span></a></aside>
+<aside class="sos"><b><span class="ico" data-ic="ambulance"></span> <span class="bn">জরুরি অবস্থায় ফোন করুন</span><span class="en">In an emergency call</span></b><a href="tel:999"><span class="bn">৯৯৯</span><span class="en">999</span></a></aside>
 <footer>
   <nav class="flinks" aria-label="Footer"><a href="about.html"><span class="bn">আমাদের সম্পর্কে</span><span class="en">About</span></a><a href="contact.html"><span class="bn">যোগাযোগ</span><span class="en">Contact</span></a><a href="privacy.html"><span class="bn">গোপনীয়তা নীতি</span><span class="en">Privacy Policy</span></a><a href="disclaimer.html"><span class="bn">দাবিত্যাগ</span><span class="en">Disclaimer</span></a></nav>
-  <p><span class="bn">⚠️ ডাক্তারের সময় বদলাতে পারে। যাওয়ার আগে হাসপাতালে ফোন করে নিশ্চিত হয়ে নিন। এই সাইট কোনো হাসপাতালের অফিসিয়াল সাইট নয়।</span><span class="en">⚠️ Doctor schedules can change. Please phone the hospital to confirm before you go. This is not an official hospital website.</span></p>
+  <p><span class="bn"><span class="ico" data-ic="alert"></span> ডাক্তারের সময় বদলাতে পারে। যাওয়ার আগে হাসপাতালে ফোন করে নিশ্চিত হয়ে নিন। এই সাইট কোনো হাসপাতালের অফিসিয়াল সাইট নয়।</span><span class="en"><span class="ico" data-ic="alert"></span> Doctor schedules can change. Please phone the hospital to confirm before you go. This is not an official hospital website.</span></p>
   <p>© Sheba Point Bogura</p>
 </footer>
 

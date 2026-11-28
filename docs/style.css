@@ -181,3 +181,21 @@ footer p{margin:0 0 8px}
 .menu a i{display:inline-flex;align-items:center;line-height:1}.menu a .ico{vertical-align:0}
 .pills a,.today .btn{display:inline-flex;align-items:center;gap:6px}
 .h .ico,.page h2 .ico{vertical-align:-.15em}
+
+/* ---- v5: favourites, share, install band, update date ---- */
+.ib{margin-left:auto;align-self:flex-start;display:flex;gap:6px;flex:none}
+.ib button{width:44px;height:44px;border-radius:50%;border:2px solid var(--line);background:#fff;color:var(--muted);display:grid;place-items:center;cursor:pointer;padding:0}
+.ib button:hover{border-color:var(--clay);color:var(--clay)}
+.ib .icn{width:1.25rem;height:1.25rem}
+.fav[aria-pressed=true]{background:#fde9e3;border-color:var(--clay);color:var(--clay)}
+.fav[aria-pressed=true] .icn{fill:currentColor}
+.dh>div:nth-child(2){min-width:0}.dh h3{overflow-wrap:anywhere}
+.favrow{padding-top:24px}
+.favchip{display:inline-flex;align-items:center;gap:8px;border-color:var(--clay);color:var(--clay);font-weight:700}
+.favchip[aria-pressed=true]{background:var(--clay);border-color:var(--clay);color:#fff}
+.favchip[aria-pressed=true] .icn{fill:currentColor}
+.upd{display:flex;flex-wrap:wrap;align-items:center;gap:4px 6px;margin:16px 0 0;font-size:.95rem;color:#c9dcd5}
+.upd b{color:#fff}
+.band.clay{background:var(--clay)}
+.band .btn{flex:none}
+.none .icn.big{fill:none}

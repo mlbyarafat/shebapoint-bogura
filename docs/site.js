@@ -10,10 +10,27 @@ const nb = n => bi(String(n).replace(/\d/g, d => BD[d]), n);
 let L = 'bn'; try { L = localStorage.getItem('lang') === 'en' ? 'en' : 'bn'; } catch (e) {}
 document.documentElement.lang = L;
 
+// ---- install-as-app + offline (service worker) ----
+let dip = null;
+const standalone = () => (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone === true;
+function showInstall() {
+  const band = document.getElementById('installband'); if (!band || standalone()) return;
+  const btn = document.getElementById('install'), ios = document.getElementById('iosHint');
+  const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  if (dip && btn) { btn.hidden = false; band.hidden = false; }
+  else if (isIos && ios) { ios.hidden = false; band.hidden = false; }
+}
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); dip = e; showInstall(); });
+window.addEventListener('appinstalled', () => { const b = document.getElementById('installband'); if (b) b.hidden = true; });
+if ('serviceWorker' in navigator) window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
+const MB = ['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'], ME = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+
 document.addEventListener('DOMContentLoaded', () => {
   const $ = id => document.getElementById(id), btn = $('lang');
   const paint = () => { document.documentElement.lang = L; if (btn && !$('q')) btn.textContent = L === 'bn' ? 'English' : 'বাংলা'; };
   paint();
+  showInstall();
+  const ib = $('install'); if (ib) ib.addEventListener('click', async () => { if (!dip) return; dip.prompt(); try { await dip.userChoice; } catch (x) {} dip = null; ib.hidden = true; const b = $('installband'); if (b) b.hidden = true; });
   const ph = () => { const q = $('hq'); if (q) q.placeholder = L === 'bn' ? 'ডাক্তার, রোগ বা হাসপাতাল' : 'Doctor, problem or hospital'; };
   ph();
   if (btn && !$('q')) btn.addEventListener('click', () => { L = L === 'bn' ? 'en' : 'bn'; try { localStorage.setItem('lang', L); } catch (x) {} paint(); ph(); });
@@ -25,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
     hq.addEventListener('keydown', e => { if (e.key === 'Enter') run(); });
   }
 
-  if (!$('stats') && !$('hlist') && !$('hquick') && !$('todaymsg')) return;
+  if (!$('stats') && !$('hlist') && !$('hquick') && !$('todaymsg') && !document.querySelector('.upd')) return;
   fetch('doctors.json', {credentials: 'omit'}).then(r => r.json()).then(j => {
     const cnt = {}, byH = {};
     j.docs.forEach(d => { cnt[d.c] = (cnt[d.c] || 0) + 1; (byH[d.h] = byH[d.h] || {})[d.c] = (byH[d.h][d.c] || 0) + 1; });
@@ -36,6 +53,10 @@ document.addEventListener('DOMContentLoaded', () => {
         `<div class="stat"><b>${nb(j.docs.length)}</b><span>${bi('ডাক্তার', 'Doctors')}</span></div>` +
         `<div class="stat"><b>${nb(j.hosp.length)}</b><span>${bi('হাসপাতাল', 'Hospitals')}</span></div>` +
         `<div class="stat"><b>${nb(depts)}</b><span>${bi('বিভাগ', 'Departments')}</span></div>`;
+    }
+    if (j.updated) {
+      const [y, m, d] = j.updated.split('-').map(Number);
+      document.querySelectorAll('.upd-date').forEach(e => { e.innerHTML = bi(`${bnum(d)} ${MB[m - 1]} ${bnum(y)}`, `${d} ${ME[m - 1]} ${y}`); });
     }
     if ($('hquick')) {
       $('hquick').innerHTML = j.hosp.map(h => `<a class="hq" data-h="${h.k}" href="doctors.html?h=${h.k}"><b>${bi(h.sb, h.se)}</b><em>${nb(total(h.k))} ${bi('জন', 'doctors')}</em></a>`).join('');

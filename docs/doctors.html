@@ -2,13 +2,34 @@
 <html lang="bn">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; font-src 'self'; manifest-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>ডাক্তার খুঁজুন | সেবা পয়েন্ট বগুড়া | Find Doctors – Sheba Point Bogura</title>
 <meta name="description" content="বগুড়ার ডাক্তার খুঁজুন – বিভাগ, হাসপাতাল ও দিন অনুযায়ী। Find Bogura doctors by department, hospital and day.">
 <meta name="theme-color" content="#0f4c3f">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://mlbyarafat.github.io/shebapoint-bogura/doctors.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="সেবা পয়েন্ট বগুড়া | Sheba Point Bogura">
+<meta property="og:locale" content="bn_BD">
+<meta property="og:title" content="ডাক্তার খুঁজুন | সেবা পয়েন্ট বগুড়া | Find Doctors – Sheba Point Bogura">
+<meta property="og:description" content="বগুড়ার ডাক্তার খুঁজুন – বিভাগ, হাসপাতাল ও দিন অনুযায়ী। Find Bogura doctors by department, hospital and day.">
+<meta property="og:url" content="https://mlbyarafat.github.io/shebapoint-bogura/doctors.html">
+<meta property="og:image" content="https://mlbyarafat.github.io/shebapoint-bogura/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ডাক্তার খুঁজুন | সেবা পয়েন্ট বগুড়া | Find Doctors – Sheba Point Bogura">
+<meta name="twitter:description" content="বগুড়ার ডাক্তার খুঁজুন – বিভাগ, হাসপাতাল ও দিন অনুযায়ী। Find Bogura doctors by department, hospital and day.">
+<meta name="twitter:image" content="https://mlbyarafat.github.io/shebapoint-bogura/og-image.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="সেবা পয়েন্ট">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preload" href="fonts/hind-siliguri-bengali-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
 <script src="icons.js"></script>
@@ -24,10 +45,12 @@
 <section class="phead"><div class="wrap">
   <h1 data-t="h1">আপনার ডাক্তার খুঁজুন</h1>
   <p data-t="sub">বগুড়ার ৭টি হাসপাতালের ডাক্তার – কোথায় বসেন, কোন দিন, কয়টায়।</p>
+  <p class="upd"><span class="ico" data-ic="calendar"></span><span class="bn">তথ্য সর্বশেষ হালনাগাদ:</span><span class="en">Data last updated:</span> <b class="upd-date"></b></p>
   <label class="search"><span class="sr" data-t="ph">ডাক্তার, রোগ বা হাসপাতাল লিখুন</span>
     <input id="q" type="search" maxlength="60" autocomplete="off" enterkeyhint="search" data-p="ph"></label>
 </div></section>
 <main class="wrap" id="main">
+  <div class="favrow"><button id="favbtn" class="chip favchip" type="button" aria-pressed="false"></button></div>
   <section class="sec"><h2 class="h" data-t="hCat">১. কোন বিভাগের ডাক্তার?</h2><div id="cats" class="cats" role="group"></div></section>
   <section class="sec"><h2 class="h" data-t="hHosp">২. কোন হাসপাতাল?</h2><div id="hosp" class="chips" role="group"></div></section>
   <section class="sec"><h2 class="h" data-t="hDay">৩. কোন দিন দেখাতে চান?</h2><div id="days" class="chips" role="group"></div></section>

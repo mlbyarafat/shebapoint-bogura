@@ -16,6 +16,8 @@ const P = {
  ambulance:'<path d="M3 16V7a1 1 0 0 1 1-1h10v10"/><path d="M14 9h4l3 3v4h-2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M9 16h6"/><path d="M8.5 8.5v3M7 10h3"/>',
  alert:'<path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4"/><path d="M12 17.5h.01"/>',
  doctor:'<circle cx="12" cy="7" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/>',
+ share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.600 13.500 6.800 4M15.400 6.500l-6.800 4"/>',
+ download:'<path d="M12 3v12"/><path d="m7 11 5 5 5-5"/><path d="M4 21h16"/>',
  plus:'<path d="M12 5v14M5 12h14"/>',
  sad:'<circle cx="12" cy="12" r="9"/><path d="M8 16s1.5-2 4-2 4 2 4 2"/><path d="M9 9.5h.01M15 9.5h.01"/>',
  dent:'<path d="M7 3C4.500 3 3 5 3 7.500c0 2 1 3.500 1.500 5.500.6 2.500.7 8 3 8 2 0 1.500-5 4.500-5s2.500 5 4.500 5c2.300 0 2.400-5.500 3-8 .5-2 1.500-3.500 1.500-5.500C21 5 19.500 3 17 3c-2 0-3 1-5 1S9 3 7 3z"/>',
